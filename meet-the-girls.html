@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meet the Girls - Chattanooga Microstead</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #333;
+        }
+        h1 {
+            background-color: #6c9a8b;
+            color: white;
+            padding: 40px 20px;
+            margin: 0;
+        }
+        .chicken-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 30px;
+        }
+        .chicken-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            margin: 15px;
+            padding: 20px;
+            width: 220px;
+        }
+        .chicken-card img {
+            width: 200px;
+            border-radius: 10px;
+        }
+        footer {
+            background-color: #6c9a8b;
+            color: white;
+            padding: 15px 0;
+            font-size: 0.9em;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Meet the Girls</h1>
+    <div class="chicken-container" id="chicken-container">
+        <!-- Chicken cards will be inserted here by JS -->
+    </div>
+    <footer>
+        &copy; 2025 Chattanooga Microstead Services
+    </footer>
+
+    <script>
+        // Load the JSON file and render chickens
+        fetch('static/data/chickens.json')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('chicken-container');
+                data.forEach(chicken => {
+                    const card = document.createElement('div');
+                    card.className = 'chicken-card';
+                    card.innerHTML = `
+                        <img src="static/images/${chicken.Image}" alt="${chicken.Name}">
+                        <h3>${chicken.Name}</h3>
+                        <p>Breed: ${chicken.Breed}</p>
+                        <p>Age: ${chicken.Age}</p>
+                    `;
+                    container.appendChild(card);
+                });
+            })
+            .catch(err => console.error('Error loading chicken data:', err));
+    </script>
+</body>
+</html>
